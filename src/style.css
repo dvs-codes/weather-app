@@ -1,0 +1,14 @@
+
+
+.git-credit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: rgb(76, 73, 73);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 0 5px rgb(86, 83, 83);
+    grid-row: 3/4;
+    grid-column: 1/3;
+}
