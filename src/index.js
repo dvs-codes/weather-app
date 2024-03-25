@@ -25,22 +25,31 @@ const place = {
   placeGif: '',
 };
 async function getWeatherData() {
-  const weatherResponse = await fetch(`https://api.weatherapi.com/v1/current.json?key=cf662b3cd7a3420bba641613242403&q=${inputField.value}`, { mode: 'cors' });
-  const weatherData = await weatherResponse.json();
-  const giphyResponse = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=PLDN9wpwI7tLq7MjXQzLjk9SNVaTZ4Ho&s=sky${place.placeCondition}`, { mode: 'cors' });
-  const giphyData = await giphyResponse.json();
+  try {
+    const weatherResponse = await fetch(`https://api.weatherapi.com/v1/current.json?key=cf662b3cd7a3420bba641613242403&q=${inputField.value}`, { mode: 'cors' });
+    const weatherData = await weatherResponse.json();
 
-  place.placeName = weatherData.location.name;
-  place.placeRegion = weatherData.location.region;
-  place.placeCountry = weatherData.location.country;
-  place.placeCondition = weatherData.current.condition.text;
-  place.placeTemperatureInCelsius = weatherData.current.temp_c;
-  place.placeTemperatureInFahrenheit = weatherData.current.temp_f;
-  place.placeFeelsLikeInCelsius = weatherData.current.feelslike_c;
-  place.placeFeelsLikeInFahrenheit = weatherData.current.feelslike_f;
-  place.placeWindSpeed = weatherData.current.wind_kph;
-  place.placeHumidity = weatherData.current.humidity;
-  place.placeGif = giphyData.data.images.original.url;
+    place.placeName = weatherData.location.name;
+    place.placeRegion = weatherData.location.region;
+    place.placeCountry = weatherData.location.country;
+    place.placeCondition = weatherData.current.condition.text;
+    place.placeTemperatureInCelsius = weatherData.current.temp_c;
+    place.placeTemperatureInFahrenheit = weatherData.current.temp_f;
+    place.placeFeelsLikeInCelsius = weatherData.current.feelslike_c;
+    place.placeFeelsLikeInFahrenheit = weatherData.current.feelslike_f;
+    place.placeWindSpeed = weatherData.current.wind_kph;
+    place.placeHumidity = weatherData.current.humidity;
+  } catch (err) {
+    alert(`${err}:There is a problem in getting weather data`);
+  }
+
+  try {
+    const giphyResponse = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=PLDN9wpwI7tLq7MjXQzLjk9SNVaTZ4Ho&s=sky_${place.placeCondition}`, { mode: 'cors' });
+    const giphyData = await giphyResponse.json();
+    place.placeGif = giphyData.data.images.original.url;
+  } catch (err) {
+    alert(`${err}: giphy could not be loaded`);
+  }
 }
 
 function domRenderer() {
