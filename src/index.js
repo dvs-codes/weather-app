@@ -2,7 +2,9 @@ import './style.css';
 
 const inputField = document.querySelector('#input');
 const searchButton = document.querySelector('.search');
+const unitChnagerButton = document.querySelector('.unit-changer');
 const mainDisplay = document.querySelector('body');
+const weatherCard = document.querySelector('.weather-card');
 const placeCondition = document.querySelector('.condition');
 const placeName = document.querySelector('.place');
 const placeRegion = document.querySelector('.region');
@@ -11,6 +13,8 @@ const placeTemp = document.querySelector('.temp');
 const feelsLike = document.querySelector('.feels-like');
 const windSpeed = document.querySelector('.wind-speed');
 const humidity = document.querySelector('.humidity');
+let unit = '°C';
+
 const place = {
   placeName: '',
   placeRegion: '',
@@ -54,17 +58,34 @@ async function getWeatherData() {
 
 function domRenderer() {
   // main card for display
+  weatherCard.style.display = 'block';
   mainDisplay.style.backgroundImage = `url('${place.placeGif}')`;
   mainDisplay.style.backgroundSize = 'cover';
   placeCondition.textContent = place.placeCondition;
   placeName.textContent = `${place.placeName},`;
   placeRegion.textContent = `${place.placeRegion},`;
   placeCountry.textContent = `${place.placeCountry}.`;
-  placeTemp.textContent = `${place.placeTemperatureInCelsius}°C`;
-  feelsLike.textContent = `Feels like ${place.placeFeelsLikeInCelsius}°C`;
+  placeTemp.textContent = `${place.placeTemperatureInCelsius + unit}`;
+  feelsLike.textContent = `Feels like ${place.placeFeelsLikeInCelsius + unit}`;
   windSpeed.textContent = `Windspeed: ${place.placeWindSpeed} km/hr`;
   humidity.textContent = `Humidity: ${place.placeHumidity} %`;
 }
+
+function unitChager() {
+  if (unit === '°C') {
+    unit = '°F';
+    placeTemp.textContent = `${place.placeTemperatureInFahrenheit + unit}`;
+    feelsLike.textContent = `Feels like ${place.placeFeelsLikeInFahrenheit + unit}`;
+  } else {
+    unit = '°C';
+    placeTemp.textContent = `${place.placeTemperatureInCelsius + unit}`;
+    feelsLike.textContent = `Feels like ${place.placeFeelsLikeInCelsius + unit}`;
+  }
+}
+
+unitChnagerButton.onclick = () => {
+  unitChager();
+};
 
 searchButton.onclick = () => {
   getWeatherData().then(() => {

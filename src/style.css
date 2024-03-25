@@ -42,7 +42,22 @@ body {
     color: white;
 }
 
+.unit-changer {
+    background-color: rgb(228, 201, 236);
+    border-radius: 20px;
+    border: none;
+}
+
+.unit-changer:hover {
+    background-color: rgb(161, 143, 167);
+}
+
+.unit-changer:active {
+    background-color: rgb(114, 96, 121);
+}
+
 .weather-card {
+    display: none;
     background-color: rgb(228, 201, 236);
     height: 200px;
     width: 500px;
@@ -93,8 +108,8 @@ header {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background-color: rgb(136, 131, 131);
-    color: white;
+    background-color: rgb(214, 130, 240);
+    color: black;
     box-shadow: 0 0 5px rgb(86, 83, 83);
     grid-row: 3/4;
     grid-column: 1/3;
