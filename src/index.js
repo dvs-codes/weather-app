@@ -2,13 +2,12 @@ import './style.css';
 
 const inputField = document.querySelector('#input');
 const searchButton = document.querySelector('.search');
-const weatherCard = document.querySelector('.weather-card');
+const mainDisplay = document.querySelector('body');
+const placeCondition = document.querySelector('.condition');
 const placeName = document.querySelector('.place');
 const placeRegion = document.querySelector('.region');
 const placeCountry = document.querySelector('.country');
 const placeTemp = document.querySelector('.temp');
-const tempUnit = document.querySelector('.unit');
-const secondUnit = document.querySelector('.unit-2');
 const feelsLike = document.querySelector('.feels-like');
 const windSpeed = document.querySelector('.wind-speed');
 const humidity = document.querySelector('.humidity');
@@ -28,7 +27,7 @@ const place = {
 async function getWeatherData() {
   const weatherResponse = await fetch(`https://api.weatherapi.com/v1/current.json?key=cf662b3cd7a3420bba641613242403&q=${inputField.value}`, { mode: 'cors' });
   const weatherData = await weatherResponse.json();
-  const giphyResponse = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=PLDN9wpwI7tLq7MjXQzLjk9SNVaTZ4Ho&s=${place.placeCondition}weather`, { mode: 'cors' });
+  const giphyResponse = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=PLDN9wpwI7tLq7MjXQzLjk9SNVaTZ4Ho&s=sky${place.placeCondition}`, { mode: 'cors' });
   const giphyData = await giphyResponse.json();
 
   place.placeName = weatherData.location.name;
@@ -46,21 +45,16 @@ async function getWeatherData() {
 
 function domRenderer() {
   // main card for display
+  mainDisplay.style.backgroundImage = `url('${place.placeGif}')`;
+  mainDisplay.style.backgroundSize = 'cover';
+  placeCondition.textContent = place.placeCondition;
   placeName.textContent = `${place.placeName},`;
   placeRegion.textContent = `${place.placeRegion},`;
   placeCountry.textContent = `${place.placeCountry}.`;
-  placeTemp.textContent = place.placeTemperatureInCelsius;
-  if (placeTemp.textContent == place.placeTemperatureInCelsius) {
-    tempUnit.textContent = '°C';
-    feelsLike.textContent = place.placeFeelsLikeInCelsius;
-    secondUnit.textContent = '°C';
-  } else {
-    tempUnit.textContent = '°F';
-    feelsLike.textContent = place.placeFeelsLikeInFahrenheit;
-    secondUnit.textContent = '°F';
-  }
-  windSpeed.textContent = `${place.placeWindSpeed} km/hr`;
-  humidity.textContent = place.placeHumidity;
+  placeTemp.textContent = `${place.placeTemperatureInCelsius}°C`;
+  feelsLike.textContent = `Feels like ${place.placeFeelsLikeInCelsius}°C`;
+  windSpeed.textContent = `Windspeed: ${place.placeWindSpeed} km/hr`;
+  humidity.textContent = `Humidity: ${place.placeHumidity} %`;
 }
 
 searchButton.onclick = () => {
