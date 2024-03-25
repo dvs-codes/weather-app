@@ -8,8 +8,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <input type="text" name="search" id="search-field" placeholder="Type location here"> 
-    <button class="search">Search</button>
+
+    <div class="searchbox">
+        <input type="text" name="input" id="input" placeholder="Type location here">
+        <button class="search">Search</button>
+    </div>
+    <div class="weather-card">
+        <header>
+            <span class="place"></span>
+            <span class="region"></span>
+            <span class="country"></span>
+        </header>
+        <div class="main-display">
+            <span class="temp"></span><span class="unit"></span>
+            <div class="info">
+                <span class="feels-like"></span><span class="unit-2"></span>
+                <div class="wind-speed"></div>
+                <div class="humidity"></div>
+            </div>
+        </div>
+    </div>
     <div class="git-credit">
         <div> Copyright © <script>
             document.write(new Date().getFullYear())
