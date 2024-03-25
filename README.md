@@ -1,3 +1,3 @@
-# to-do-list
+# weather-app
 
-live: https://dvs-codes.github.io/to-do-list/
+live: https://dvs-codes.github.io/weather-app/
